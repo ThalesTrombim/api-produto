@@ -14,6 +14,15 @@ spec:
       containers:
         - name: api
           image: thalestrombim/api-bootcamp-produto:latest
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 0
+            periodSeconds: 1
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 1
           ports:
           - containerPort: 8080
           env:
@@ -33,5 +42,4 @@ spec:
     - port: 80
       targetPort: 8080
       nodePort: 30000
-  type: NodePort
-
+  type: LoadBalancer
